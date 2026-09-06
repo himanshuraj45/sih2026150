@@ -11,6 +11,7 @@ import {
   FileVideo,
   HardDrive,
   Plus,
+  ScanLine,
   ShieldCheck,
   Upload,
   Video,
@@ -160,6 +161,14 @@ export default function ForensicAnalysis() {
           >
             DEVICE IDENTIFICATION
           </NavButton>
+
+          <a
+            href="/forensics/carving"
+            className="inline-flex shrink-0 items-center gap-2 border border-[var(--border-cyan)] px-3 py-2 text-[10px] font-mono tracking-widest text-[var(--cyan-primary)] hover:bg-[var(--cyan-glow)]"
+          >
+            <ScanLine className="h-3.5 w-3.5" />
+            CARVING LAB
+          </a>
         </nav>
 
         {view === 'cases' && (
