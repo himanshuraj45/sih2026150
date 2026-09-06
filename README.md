@@ -58,39 +58,7 @@ It brings evidence acquisition, video analysis, metadata extraction, timestamp v
 </div>
 
 ---
-## 🛡️ NEXORA vs Existing Forensic Tools
 
-> **Legend:** ✅ Available / 🎯 NEXORA Focus / 🚧 Planned / ❌ Not our focus
-
-| 🔍 Capability | 🛡️ NEXORA | 🔎 Autopsy | 🧲 Magnet AXIOM | 🗂️ FTK |
-|---|:---:|:---:|:---:|:---:|
-| 📹 **CCTV/DVR/NVR-focused workflow** | 🎯 | 🔧 | 🔧 | 🔧 |
-| 🔌 **Vendor-agnostic DVR/NVR architecture** | 🎯 | 🔧 | 🔧 | 🔧 |
-| 🧩 **Unified CCTV investigation workspace** | 🎯 | 🔧 | 🔧 | 🔧 |
-| 🕒 **Cross-camera timeline investigation** | 🎯 | 🔧 | 🔧 | 🔧 |
-| 🔍 **Interactive forensic carving laboratory** | ✅ | 🔧 | 🔧 | 🔧 |
-| 🎞️ **CCTV evidence preview** | ✅ | ✅ | ✅ | ✅ |
-| 🔐 **Evidence hashing** | 🚧 | ✅ | ✅ | ✅ |
-| 📋 **Chain-of-custody tracking** | 🚧 | ✅ | ✅ | ✅ |
-| 📊 **Forensic reporting** | 🚧 | ✅ | ✅ | ✅ |
-| 🌐 **Browser-based interface** | 🎯 | ❌ | ❌ | ❌ |
-| 🧪 **Read-only recovery demonstration** | ✅ | 🔧 | 🔧 | 🔧 |
-| 🏫 **Student-friendly forensic demonstration** | 🎯 | 🔧 | 🔧 | 🔧 |
-| 🆓 **Open-source project** | ✅ | ✅ | ❌ | ❌ |
-
-### ⭐ What Makes NEXORA Stand Out?
-
-| 🛡️ NEXORA | 💡 Our Focus |
-|---|---|
-| 📹 **CCTV-first** | Built around surveillance evidence investigation |
-| 🔌 **Vendor-agnostic** | Designed to support multiple DVR/NVR vendors |
-| 🧩 **Unified workflow** | Connects evidence, analysis, recovery, and reporting |
-| 🕒 **Cross-camera investigation** | Designed to connect events across cameras |
-| 🌐 **Browser-based** | Accessible through a modern web dashboard |
-| 🧪 **Interactive carving lab** | Makes forensic recovery concepts easy to demonstrate |
-| 🔐 **Evidence transparency** | Shows how evidence is tracked and documented |
-
-> **NEXORA's goal is not to replace established forensic platforms, but to provide a focused CCTV investigation workspace that makes complex evidence workflows easier to understand and operate.**
 
 ## 🏆 Hackathon Project
 
