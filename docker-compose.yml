@@ -1,18 +1,17 @@
-name: osiris
+name: nexora
+
 services:
+
+  # ==============================
+  # NEXORA MAIN WEB APPLICATION
+  # ==============================
   osiris:
-    # Builds locally from the Dockerfile so you always run the cloned code.
-    # To use the prebuilt image instead, replace the `build:` block below with
-    # `image: ghcr.io/simplifaisoul/osiris:latest`.
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: osiris
-    # Host port is configurable via OSIRIS_PORT in .env (defaults to 3000).
+    container_name: nexora
     ports:
       - "${OSIRIS_PORT:-3000}:3000"
-    # Optional API keys / scanner backend — copy .env.template to .env and
-    # fill in what you need. Missing file is ignored (keyless feeds still work).
     env_file:
       - path: .env
         required: false
@@ -24,10 +23,44 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
+    depends_on:
+      - osiris-intel
+      - osiris-ai
     networks:
       - default
       - umami_default
 
+  # ==============================
+  # EXISTING OSINT INTELLIGENCE
+  # ==============================
+  osiris-intel:
+    build:
+      context: ./intel
+      dockerfile: Dockerfile
+    container_name: osiris-intel
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+    networks:
+      - default
+
+  # ==============================
+  # NEW LOCAL VIDEO AI
+  # ==============================
+  osiris-ai:
+    build:
+      context: ./ai
+      dockerfile: Dockerfile
+    container_name: osiris-ai
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - default
+
+  # ==============================
+  # NGINX CACHE
+  # ==============================
   osiris-cache:
     image: nginx:alpine
     container_name: osiris-cache
@@ -42,77 +75,98 @@ services:
     networks:
       - default
 
-  osiris-intel:
-    build:
-      context: ./intel
-      dockerfile: Dockerfile
-    container_name: osiris-intel
-    ports:
-      - "4000:4000"
-    restart: unless-stopped
-    networks:
-      - default
 
+# ==============================
+# VOLUMES
+# ==============================
 volumes:
   nginx-cache:
 
+
+# ==============================
+# NETWORKS
+# ==============================
 networks:
   umami_default:
     external: true
 
-# ── CasaOS app-store metadata (ignored by plain Docker Compose) ──
+
+# ==============================
+# CASAOS INFORMATION
+# ==============================
 x-casaos:
   architectures:
     - amd64
     - arm64
+
   main: osiris
+
   author: simplifaisoul
   developer: simplifaisoul
   category: Network
+
   description:
     en_us: >-
-      OSIRIS is a production-grade open-source OSINT situational-awareness
-      dashboard. It aggregates real-time global intelligence across aviation,
-      maritime, CCTV networks, seismic activity, wildfires, news feeds,
-      weather, space weather, cyber threats (CVEs) and conflict zones into a
-      single GPU-accelerated MapLibre interface. Most features work with no
-      API keys.
+      NEXORA is a vendor-agnostic digital video forensic analysis platform
+      with local AI-powered video analysis.
+
   tagline:
-    en_us: Real-time global OSINT intelligence dashboard
+    en_us: Local-first digital video forensics platform
+
   title:
-    en_us: OSIRIS
+    en_us: NEXORA
+
   icon: https://raw.githubusercontent.com/simplifaisoul/osiris/master/public/casaos-icon.png
+
   thumbnail: https://raw.githubusercontent.com/simplifaisoul/osiris/master/public/og-image.png
+
   screenshot_link:
     - https://raw.githubusercontent.com/simplifaisoul/osiris/master/public/og-image.png
+
   scheme: http
   hostname: ""
   port_map: "3000"
   index: /
   webui_port: 3000
+
   envs:
     - container: SCANNER_URL
       description:
-        en_us: "(Optional) RECON scanner backend URL, e.g. http://scanner:7700"
+        en_us: "(Optional) RECON scanner backend URL."
+
     - container: SCANNER_KEY
       description:
-        en_us: "(Optional) RECON scanner shared secret (must match backend OSIRIS_KEY)."
+        en_us: "(Optional) RECON scanner shared secret."
+
     - container: FIRMS_API_KEY
       description:
-        en_us: "(Optional) NASA FIRMS API key for active-fire data."
+        en_us: "(Optional) NASA FIRMS API key."
+
     - container: AIS_API_KEY
       description:
-        en_us: "(Optional) aisstream.io key for maritime vessel tracking."
+        en_us: "(Optional) AIS maritime tracking API key."
+
     - container: OPENSKY_CLIENT_ID
       description:
-        en_us: "(Optional) OpenSky OAuth2 client id for higher aircraft rate limits."
+        en_us: "(Optional) OpenSky OAuth2 client ID."
+
     - container: OPENSKY_CLIENT_SECRET
       description:
         en_us: "(Optional) OpenSky OAuth2 client secret."
+
     - container: N2YO_API_KEY
       description:
-        en_us: "(Optional) N2YO key for satellite tracking."
+        en_us: "(Optional) N2YO satellite tracking API key."
+
   ports:
     - container: "3000"
       description:
-        en_us: "Web UI (HTTP)."
+        en_us: "NEXORA Web UI."
+
+    - container: "4000"
+      description:
+        en_us: "NEXORA Intelligence Layer."
+
+    - container: "5000"
+      description:
+        en_us: "NEXORA Local AI Video Analysis."
